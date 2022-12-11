@@ -5,7 +5,13 @@ const handlebars = require('express-handlebars');
 const app = express();
 const port = 3001;
 
+const route = require('./routes');
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+//middleware để xử lý dữ liệu từ form-data
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
 //http logger
 app.use(morgan('combined'));
@@ -17,12 +23,10 @@ app.engine('hbs', handlebars.engine({
 app.set('view engine', 'hbs');
 app.set('views', './src/resources/views');
 
-app.get('/', (req, res) => {
-  res.render('home')
-})
-app.get('/news', (req, res) => {
-  res.render('news')
-})
+//Route
+route(app)
+
+
 
 
 app.listen(port, () => {
