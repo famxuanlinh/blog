@@ -1,5 +1,7 @@
 const path = require("path");
 const express = require("express");
+//Sử dụng phương thức PUT trong form behaivior
+var methodOverride = require("method-override");
 const morgan = require("morgan");
 const handlebars = require("express-handlebars");
 const app = express();
@@ -17,6 +19,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn’t support it.
+app.use(methodOverride("_method"));
+
 //http logger
 app.use(morgan("combined"));
 
@@ -25,6 +30,9 @@ app.engine(
   "hbs",
   handlebars.engine({
     extname: "hbs",
+    helpers: {
+      sum: (a, b) => a + b,
+    },
   })
 );
 app.set("view engine", "hbs");

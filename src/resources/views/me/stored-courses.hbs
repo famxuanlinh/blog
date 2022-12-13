@@ -1,0 +1,29 @@
+<div class="mt-4">
+  <h2>Khóa học của tôi</h2>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tên</th>
+        <th scope="col">Trình độ</th>
+        <th scope="col">Ngày tạo</th>
+        <th scope="col">Tác vụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each courses}}
+        <tr>
+        {{!-- sum (a, b) là hàm helper trong file index để  + 1--}}
+          <th scope="row">{{sum @index 1 }}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.level}}</td>
+          <td>{{this.createdAt}}</td>
+          <td>
+            <a href='/courses/{{this._id}}/edit'>Sửa</a>
+            <a href=''>Xóa</a>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

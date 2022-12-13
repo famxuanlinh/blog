@@ -8,9 +8,9 @@ const Schema = mongoose.Schema;
 const Course = new Schema(
   {
     name: { type: String, required: true },
-    descripton: { type: String, maxLength: 600 },
+    description: { type: String, maxLength: 600 },
     image: { type: String, maxLength: 255 },
-    slug: { type: String, slug: 'name' },
+    slug: { type: String, slug: 'name', unique: true },
     level: { type: String, maxLength: 255 },
     videoID: { type: String, required: true },
   },
