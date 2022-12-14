@@ -4,13 +4,30 @@ const { multipleMongooseToObject } = require("../../until/mongoose");
 class MeController {
   // [GET] /me/stored/courses
   storedCourse(req, res, next) {
-    Course.find({})
-      .then((courses) =>
+
+    Promise.all([Course.find({}), Course.countDocumentsDeleted()])
+      .then(([courses, deletedCount]) => 
         res.render("me/stored-courses", {
+          deletedCount,
           courses: multipleMongooseToObject(courses),
         })
       )
-      .catch(next);
+
+    //Mục đích là chuyển biến deletedCount vào promise trên nên gộp lại
+    
+    // Course.countDocumentsDeleted()
+    // .then((deletedCount) => {
+    //   console.log(deletedCount)
+    // })
+    // .catch(() => {});
+
+    // Course.find({})
+    //   .then((courses) =>
+    //     res.render("me/stored-courses", {
+    //       courses: multipleMongooseToObject(courses),
+    //     })
+    //   )
+    //   .catch(next);
   }
   // [GET] /me/trash/courses
   trashCourse(req, res, next) {
