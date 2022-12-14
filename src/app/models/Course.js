@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 var slug = require("mongoose-slug-generator");
+var mongooseDelete = require('mongoose-delete');
 
-mongoose.plugin(slug);
 
 const Schema = mongoose.Schema;
 
@@ -16,5 +16,10 @@ const Course = new Schema(
   },
   { timestamps: true }
 );
+
+//Add plugins
+mongoose.plugin(slug);
+Course.plugin(mongooseDelete, {overrideMethods: 'all', deletedAt: true});
+//Đối số thứ nhất là thư viện, đối số 2 là cái mà mình sẽ áp dụng override lại để khi xóa mềm ko laod ra những file có deleted: true
 
 module.exports = mongoose.model("Course", Course);
