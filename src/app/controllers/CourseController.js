@@ -62,6 +62,23 @@ class CourseController {
       .then(() => res.redirect("back"))
       .catch(next);
   }
+  // [POST] /course/handle-form-action
+  handleFormAction(req, res, next) {
+    switch (req.body.action) {
+      case 'delete':
+        //Vì courseIds nó là 1 mảng nên phải dùng{ $in: id} cú pháp của mongodb 
+        Course.delete({ _id: {$in: req.body.courseIds} })
+      .then(() => res.redirect("back"))
+      .catch(next);
+        break;
+      default:
+        res.json({message: 'Action not allowed'})
+  }}
 }
 
+
+
+
+
 module.exports = new CourseController();
+ 

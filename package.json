@@ -30,7 +30,7 @@
     "mongoose-slug-generator": "^1.0.4"
   },
   "lint-staged": {
-    "src/**/*.{, json, scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+    "src/**/*.{js, json, scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
   },
   "husky": {
     "hooks": {
